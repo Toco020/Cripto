@@ -1,107 +1,95 @@
-<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cripto</title>
 
-let n1 = Math.floor(Math.random(1000)*1000)+1;
-let n2 = Math.floor(Math.random(1000)*1000)+1;
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
 
-// 1.000.000.000.000.000
+    
+</head>
+<body>
 
-function buscaPrimo(pos) {
-    let divisivel = 0, count = 0, primo = 0;
-    while (count < pos){
-        primo++;
-        for (let i = 1; i <= primo; i++) {
-            if (primo % i === 0) {
-                divisivel++;
-            }
+    <section id="generator">
+
+        <div id="primos">
+            <article>
+                <p>Primo 1: <span id="primo1"></span></p>
+
+                <input type="number" name="escala" id="p1min" placeholder="Posição Inicial" step="10" onchange="escalaNova('p1min')">
+
+                <input type="number" name="escala" id="p1max" placeholder="Posição Final" step="10" onchange="escalaNova('p1max')">
+            </article>
+
+            <article>
+                <p>Primo 2: <span id="primo2"></span></p>
+
+                <input type="number" name="escala" id="p2min" placeholder="Posição Inicial" step="10" onchange="escalaNova('p2min')">
+
+                <input type="number" name="escala" id="p2max" placeholder="Posição Final" step="10" onchange="escalaNova('p2max')">
+            </article>
+        </div>
+
+        <button onclick="gerarPrimos()">Gerar Primos</button>
+    </section>
+
+    <section id="calc">
+        <p id="resultadoMult"></p>
+    </section>
+
+    <section id="decodificator">
+        <div>
+            <input type="text" name="" id="produto" placeholder="Produto dos Termos">
+        </div>
+
+        <button onclick="procura()">Encontrar Primos</button>
+
+        <p id="resultadoProduto"></p>
+    </section>
+    
+    <script>
+        let p1min = 0;
+        let p1max = 100;
+        let p2min = 0;
+        let p2max = 100;
+
+        function escalaNova(id){
+
+            if (id == "p1min") p1min = document.getElementById(id).value;
+            else if (id == "p1max") p1max = document.getElementById(id).value;
+            else if (id == "p2min") p2min = document.getElementById(id).value;
+            else p2max = document.getElementById(id).value;
         }
-        if (divisivel == 2) count++;
-        divisivel = 0;
-    }
-    return primo;
-}
 
-let pos1 = n1;
-let pos2 = n2;
+        let p1 = document.getElementById("primo1");
+        let p2 = document.getElementById("primo2");
 
-let primo1 = buscaPrimo(pos1);
-let primo2 = buscaPrimo(pos2);
+        // console.log(doisTermosProduto(419));
 
-document.write(`${pos1}  ${primo1}</br>`);
-document.write(`${pos2}  ${primo2}</br>`);
+        function gerarPrimos(){
+            let n1 = Math.floor(Math.random() * (p1max - p1min + 1) + p1min);
+            let n2 = Math.floor(Math.random() * (p2max - p2min + 1) + p2min);
+            let primo1 = buscaPrimo(n1);
+            let primo2 = buscaPrimo(n2);
 
+            p1.innerHTML = primo1;
+            p2.innerHTML = primo2;
 
-function produto(num1, num2){
-    return num1*num2;
-}
-
-let produtoPrimo = produto(primo1,primo2);
-
-document.write(`${primo1} * ${primo2} = ${produtoPrimo}</br>`);
-
-
-function doisTermosProduto(produto){
-    let teste = 0, p1 = 1, p2;
-
-    while (verificaPrimo(p2) == false) {
-        teste++;
-
-        p1 = buscaPrimo(teste);
-
-        if (Number.isInteger(produto/p1)) p2 = produto/p1;
-
-        // console.log(p1);
-        // console.log(p2);
-        // console.log(Number.isInteger(produto/p1));
-    }
-
-    return [p1, p2];
-}
-
-// function proximoPrimo(pos, primo){
-
-//     let divisivel = 0, count = 0, primo = 0;
-//     while (count < pos){
-//         primo++;
-//         for (let i = 1; i <= primo; i++) {
-//             if (primo % i === 0) {
-//                 divisivel++;
-//             }
-//         }
-//         if (divisivel == 2) count++;
-//         divisivel = 0;
-//     }
-//     return primo;
-
-// }
-
-function verificaPrimo(primo){
-    if (primo != false){
-        let divisivel = 0;
-        for (let i = 1; i <= primo; i++) {
-            if (primo % i === 0) {
-                divisivel++;
-            }
+            document.getElementById("resultadoMult").innerHTML = `${primo1} * ${primo2} = ${produto(primo1, primo2)}`;
         }
-        if (divisivel == 2) return true;
-        else return false;
-    }
-}
 
-// doisTermosProduto(produtoPrimo);
+        function procura(){
+            let busca = document.getElementById("produto").value;
+            let [p1, p2] = doisTermosProduto(busca);
+            // console.log(p1, p2);
 
-let [p1, p2] = doisTermosProduto(produtoPrimo);
-
-document.write(`</br>primo 1 ${p1}</br> primo 2 ${p2}</br> produto ${(p1*p2)}`);
+            document.getElementById("resultadoProduto").innerText = `Os primos deste produto de dois termos são ${p1} e ${p2}`;
+        }
 
 
-
-
-
-
-
-
-
-
-
-
-</script>
+    </script>
+</body>
+</html>
