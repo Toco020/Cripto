@@ -66,6 +66,7 @@
 
         let p1 = document.getElementById("primo1");
         let p2 = document.getElementById("primo2");
+        let busca = document.getElementById("produto");
 
         // console.log(doisTermosProduto(419));
 
@@ -77,13 +78,14 @@
 
             p1.innerHTML = primo1;
             p2.innerHTML = primo2;
+            busca.value = primo1 * primo2;
 
-            document.getElementById("resultadoMult").innerHTML = `${primo1} * ${primo2} = ${produto(primo1, primo2)}`;
+            document.getElementById("resultadoMult").innerHTML = `${primo1} * ${primo2} = ${busca.value}`;
         }
 
         function procura(){
-            let busca = document.getElementById("produto").value;
-            let [p1, p2] = doisTermosProduto(busca);
+            let produto = document.getElementById("produto").value;
+            let [p1, p2] = doisTermosProduto(produto);
             // console.log(p1, p2);
 
             document.getElementById("resultadoProduto").innerText = `Os primos deste produto de dois termos são ${p1} e ${p2}`;
