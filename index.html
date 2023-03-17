@@ -74,26 +74,42 @@
             if (escalaP1 == 0) escalaP1 = 10;
             if (escalaP2 == 0) escalaP2 = 10;
 
-            const primo1 = escalaPrimo(escalaP1, Number(document.getElementById("op1").value));
-            const primo2 = escalaPrimo(escalaP2, Number(document.getElementById("op2").value));
-            const produto = primo1*primo2;
+            let primo1 = escalaPrimo(escalaP1, Number(document.getElementById("op1").value));
+            let primo2 = escalaPrimo(escalaP2, Number(document.getElementById("op2").value));
+            let produto = primo1*primo2;
 
-            document.getElementById("primo1").innerHTML = `${primo1}`;
-            document.getElementById("primo2").innerHTML = `${primo2}`;
-            document.getElementById("resultadoMult").innerHTML = document.getElementById("produto").value =  `${produto}`;
+            document.getElementById("primo1").innerHTML = `${pontua(`${primo1}`)}`;
+            document.getElementById("primo2").innerHTML = `${pontua(`${primo2}`)}`;
+            document.getElementById("resultadoMult").innerHTML = `${pontua(`${produto}`)}`;
+            document.getElementById("produto").value = produto;
         }
 
 
         function procura(){
             let produto = Number(document.getElementById("produto").value);
-
+            // console.log(produto);
             if (produto > 0) {
                 let [p1, p2] = doisTermosProduto(produto);
-                document.getElementById("resultadoProduto").innerText = `Os primos deste produto de dois termos são ${p1} e ${p2}`;
+                document.getElementById("resultadoProduto").innerText = `Os primos deste produto de dois termos são ${pontua(`${p1}`)} e ${pontua(`${p2}`)}.`;
             
             }else alert('O campo "Produto dos Termos" está vazio!');
         }
 
+        function pontua(num){
+            let temp = num.split("").reverse();
+            let adicional = 0;
+            if (temp.length > 3){
+                for (let i = 1; i < temp.length-adicional; i++) {
+                    if (i % 3 == 0) {
+                        temp.splice(i+adicional, 0, ".");
+                        adicional++;
+                    }
+                } 
+                let saida = "";
+                for (const element of temp.reverse()) saida += `${element}`;
+                return saida;
+            }else return num;
+        }
 
     </script>
 </body>
