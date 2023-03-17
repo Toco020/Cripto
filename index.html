@@ -17,19 +17,21 @@
 
         <div id="primos">
             <article>
-                <p>Primo 1: <span id="primo1"></span></p>
+                <input type="number" id="escala1" placeholder="Escala Base: 10" step="10">
 
-                <input type="number" name="escala" id="p1min" placeholder="Posição Inicial" step="10" onchange="escalaNova('p1min')">
-
-                <input type="number" name="escala" id="p1max" placeholder="Posição Final" step="10" onchange="escalaNova('p1max')">
+                <select id="op1">
+                    <option value="1">Próximo Primo</option>
+                    <option value="-1">Primo Anterior</option>
+                </select>
             </article>
 
             <article>
-                <p>Primo 2: <span id="primo2"></span></p>
+                <input type="number" id="escala2" placeholder="Escala Base: 10" step="10">
 
-                <input type="number" name="escala" id="p2min" placeholder="Posição Inicial" step="10" onchange="escalaNova('p2min')">
-
-                <input type="number" name="escala" id="p2max" placeholder="Posição Final" step="10" onchange="escalaNova('p2max')">
+                <select id="op2">
+                    <option value="1">Próximo Primo</option>
+                    <option value="-1">Primo Anterior</option>
+                </select>
             </article>
         </div>
 
@@ -37,7 +39,20 @@
     </section>
 
     <section id="calc">
-        <p id="resultadoMult"></p>
+        <div class="column">
+            <p>Primo 1</p>
+            <span id="primo1"></span>
+        </div>
+
+        <div class="column">
+            <p>Primo 2</p>
+            <span id="primo2"></span>
+        </div>
+
+        <div class="column">
+            <p>Produto dos Termos</p>
+            <span id="resultadoMult"></span>
+        </div>
     </section>
 
     <section id="decodificator">
@@ -51,44 +66,32 @@
     </section>
     
     <script>
-        let p1min = 0;
-        let p1max = 100;
-        let p2min = 0;
-        let p2max = 100;
-
-        function escalaNova(id){
-
-            if (id == "p1min") p1min = document.getElementById(id).value;
-            else if (id == "p1max") p1max = document.getElementById(id).value;
-            else if (id == "p2min") p2min = document.getElementById(id).value;
-            else p2max = document.getElementById(id).value;
-        }
-
-        let p1 = document.getElementById("primo1");
-        let p2 = document.getElementById("primo2");
-        let busca = document.getElementById("produto");
-
-        // console.log(doisTermosProduto(419));
+        // let n1 = Math.floor(Math.random() * (p1max - p1min + 1) + p1min); // let n2 = Math.floor(Math.random() * (p2max - p2min + 1) + p2min);
 
         function gerarPrimos(){
-            let n1 = Math.floor(Math.random() * (p1max - p1min + 1) + p1min);
-            let n2 = Math.floor(Math.random() * (p2max - p2min + 1) + p2min);
-            let primo1 = buscaPrimo(n1);
-            let primo2 = buscaPrimo(n2);
+            let escalaP1 = Number(document.getElementById("escala1").value);
+            let escalaP2 = Number(document.getElementById("escala2").value);
+            if (escalaP1 == 0) escalaP1 = 10;
+            if (escalaP2 == 0) escalaP2 = 10;
 
-            p1.innerHTML = primo1;
-            p2.innerHTML = primo2;
-            busca.value = primo1 * primo2;
+            const primo1 = escalaPrimo(escalaP1, Number(document.getElementById("op1").value));
+            const primo2 = escalaPrimo(escalaP2, Number(document.getElementById("op2").value));
+            const produto = primo1*primo2;
 
-            document.getElementById("resultadoMult").innerHTML = `${primo1} * ${primo2} = ${busca.value}`;
+            document.getElementById("primo1").innerHTML = `${primo1}`;
+            document.getElementById("primo2").innerHTML = `${primo2}`;
+            document.getElementById("resultadoMult").innerHTML = document.getElementById("produto").value =  `${produto}`;
         }
 
-        function procura(){
-            let produto = document.getElementById("produto").value;
-            let [p1, p2] = doisTermosProduto(produto);
-            // console.log(p1, p2);
 
-            document.getElementById("resultadoProduto").innerText = `Os primos deste produto de dois termos são ${p1} e ${p2}`;
+        function procura(){
+            let produto = Number(document.getElementById("produto").value);
+
+            if (produto > 0) {
+                let [p1, p2] = doisTermosProduto(produto);
+                document.getElementById("resultadoProduto").innerText = `Os primos deste produto de dois termos são ${p1} e ${p2}`;
+            
+            }else alert('O campo "Produto dos Termos" está vazio!');
         }
 
 

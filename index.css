@@ -15,8 +15,12 @@ body {
     text-align: center;
 }
 
+input {
+    text-align: center;
+}
+
 section {
-    margin-bottom: 6rem;
+    margin-bottom: 4rem;
 }
 
 #generator {
@@ -29,14 +33,39 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 1rem;
 }
 
-input {
-    text-align: center;
+#generator #primos article {
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
+
+#generator button {
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+#calc {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#calc .column {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+
 
 #decodificator {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    width: 40%;
+}
+
+#produto {
+    width: 100%;
 }
