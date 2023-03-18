@@ -55,13 +55,13 @@ function verificaPrimo(primo){
         if (primo % i === 0) {
             divisivel++;
         }
-        // console.log(primo);
     }
+    console.log(primo);
     return divisivel == 2;
 }
 
 function escalaPrimo(escala, sentido){
-    while (!verificaPrimo(escala)) escala += sentido;
+    while (!verificaPrimo(escala)) escala += sentido; 
     return escala;
 }
 
