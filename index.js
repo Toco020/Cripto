@@ -65,3 +65,26 @@ function escalaPrimo(escala, sentido){
     return escala;
 }
 
+function pontua(num){
+    let temp = num.split("").reverse();
+    let adicional = 0;
+    if (temp.length > 3){
+        for (let i = 1; i < temp.length-adicional; i++) {
+            if (i % 3 == 0) {
+                temp.splice(i+adicional, 0, ".");
+                adicional++;
+            }
+        } 
+        let saida = "";
+        for (const element of temp.reverse()) saida += `${element}`;
+        return saida;
+    }else return num;
+}
+
+function verificaStorage(key, valor){
+    return sessionStorage.getItem(key) == valor;
+}
+
+function clearStorage(){
+    sessionStorage.clear();
+}
