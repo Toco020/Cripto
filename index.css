@@ -20,6 +20,21 @@ body {
     color: var(--t-color);
 }
 
+*::-webkit-scrollbar {
+    width: 1rem;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--s-color);
+    box-shadow: 0 0 10rem var(--t-color);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(to top, var(--p-color), var(--s-color));
+    border-radius: 1rem 0;
+    
+}
+
 input, button, select {
     border: none;
     text-align: center;
