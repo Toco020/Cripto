@@ -1,4 +1,6 @@
-// 1.000.000.000.000.000
+// 1.000.000.000.000.000 = 16 algarismos
+//   999.998.990.000.099 = Se e somente se um dos primo estiver na escala de 7 algarismos (9.999.991), em velocidade baixa no momoento (~4 min). ### +170k posição ###
+//     2.099.781.407.387
 //    99.999.820.000.081
 // 9.754.391.154.146.016.630.121 = 98.764.321.261 ** 2
 

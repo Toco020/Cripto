@@ -56,7 +56,7 @@
     </section>
 
     <section id="decodificator">
-        <input type="text" name="" id="produto" placeholder="Produto dos Termos">
+        <input type="text" name="" id="produto" placeholder="Produto dos Termos" onchange="verificaTempo()">
 
         <button onclick="procura()">Encontrar Primos</button>
 
@@ -64,7 +64,16 @@
     </section>
     
     <script>
-        // let n1 = Math.floor(Math.random() * (p1max - p1min + 1) + p1min); // let n2 = Math.floor(Math.random() * (p2max - p2min + 1) + p2min);
+        
+        function verificaTempo(){
+            let menorP = (Number(document.getElementById("primo1")) <= Number(document.getElementById("primo2"))) ? document.getElementById("primo1").innerHTML.split("").length : document.getElementById("primo2").innerHTML.split("").length;
+            let aviso = document.getElementById("resultadoProduto");
+
+            if (menorP >= 8) aviso.innerHTML = "Levará mais de 1h para encontrar os primos."; // +170k
+            else if (menorP == 7) aviso.innerHTML = "Poderá levar até 12 min para encontrar os primos."; // 78498
+            else if (menorP <= 6) aviso.innerHTML = "Levará menos que 10 seg para encontrar os primos"; // 9592
+            else aviso.innerHTML = "";
+        }
 
         let primo1 = 0, primo2 = 0;
         clearStorage();
@@ -93,6 +102,7 @@
             document.getElementById("primo2").innerHTML = `${pontua(`${primo2}`)}`;
             document.getElementById("resultadoMult").innerHTML = `${pontua(`${produto}`)}`;
             document.getElementById("produto").value = produto;
+            verificaTempo();
         }
 
 
