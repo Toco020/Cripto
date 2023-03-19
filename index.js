@@ -28,7 +28,9 @@ function doisTermosProduto(produto){
 
     while (!verificaPrimo(p2)) {
         p1 = proximoPrimo(p1);
-        if (Number.isInteger(produto/p1)) p2 = produto/p1;
+        if (Number.isInteger(p1)) {
+            if (Number.isInteger(produto/p1)) p2 = produto/p1;
+        } else break;  
     }
 
     return [p1, p2];
@@ -37,16 +39,25 @@ function doisTermosProduto(produto){
 function proximoPrimo(prant){
     let divisivel = 0;
 
-    while (true){
-        prant++;
-        for (let i = 1; i <= prant; i++) {
-            if (prant % i === 0) {
-                divisivel++;
+    if (prant < limite){
+        console.log(prant);
+        while (true){
+            prant++;
+            for (let i = 1; i <= prant; i++) {
+                if (prant % i === 0) {
+                    divisivel++;
+                }
             }
+            if (divisivel == 2) return prant;
+            divisivel = 0;
         }
-        if (divisivel == 2) return prant;
-        divisivel = 0;
+    }else {
+        limite = escalaPrimo((prant*2), 1);
+        if (!confirm(`O menor primo está além de ${pontua(prant)}. Deseja continuar até ${pontua(limite)}?`)){
+            return `+999.983`;
+        }else return prant;
     }
+    
 
 }
 
@@ -58,7 +69,7 @@ function verificaPrimo(primo){
             divisivel++;
         }
     }
-    console.log(primo);
+    // console.log(primo);
     return divisivel == 2;
 }
 
@@ -68,19 +79,22 @@ function escalaPrimo(escala, sentido){
 }
 
 function pontua(num){
-    let temp = num.split("").reverse();
-    let adicional = 0;
-    if (temp.length > 3){
-        for (let i = 1; i < temp.length-adicional; i++) {
-            if (i % 3 == 0) {
-                temp.splice(i+adicional, 0, ".");
-                adicional++;
-            }
-        } 
-        let saida = "";
-        for (const element of temp.reverse()) saida += `${element}`;
-        return saida;
-    }else return num;
+    console.log(num);
+    if (Number.isInteger(num)) {
+        let temp = `${num}`.split("").reverse();
+        let adicional = 0;
+        if (temp.length > 3){
+            for (let i = 1; i < temp.length-adicional; i++) {
+                if (i % 3 == 0) {
+                    temp.splice(i+adicional, 0, ".");
+                    adicional++;
+                }
+            } 
+            let saida = "";
+            for (const element of temp.reverse()) saida += `${element}`;
+            return saida;
+        }
+    }return num;
 }
 
 function verificaStorage(key, valor){

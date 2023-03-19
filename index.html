@@ -66,16 +66,20 @@
     <script>
         
         function verificaTempo(){
-            let menorP = (Number(document.getElementById("primo1")) <= Number(document.getElementById("primo2"))) ? document.getElementById("primo1").innerHTML.split("").length : document.getElementById("primo2").innerHTML.split("").length;
+            let menorP = 0;
+            if (document.getElementById("primo1").innerHTML.split("").length <= document.getElementById("primo2").innerHTML.split("").length) menorP = document.getElementById("primo1").innerHTML.split("").length
+            else menorP = document.getElementById("primo2").innerHTML.split("").length;
             let aviso = document.getElementById("resultadoProduto");
 
-            if (menorP >= 8) aviso.innerHTML = "Levará mais de 1h para encontrar os primos."; // +170k
-            else if (menorP == 7) aviso.innerHTML = "Poderá levar até 12 min para encontrar os primos."; // 78498
-            else if (menorP <= 6) aviso.innerHTML = "Levará menos que 10 seg para encontrar os primos"; // 9592
+            // console.log(menorP);
+
+            if (menorP > 8) aviso.innerHTML = "Poderá levar mais de 1h para encontrar os primos.";
+            else if (menorP >= 7) aviso.innerHTML = "Poderá levar até 12 min para encontrar os primos.";
+            else if (menorP <= 6) aviso.innerHTML = "Levará menos que 10 seg para encontrar os primos";
             else aviso.innerHTML = "";
         }
 
-        let primo1 = 0, primo2 = 0;
+        let primo1 = 0, primo2 = 0, limite = 99991;
         clearStorage();
         function gerarPrimos(){
             let escalaP1 = Number(document.getElementById("escala1").value);
@@ -98,9 +102,9 @@
 
             let produto = primo1*primo2;
 
-            document.getElementById("primo1").innerHTML = `${pontua(`${primo1}`)}`;
-            document.getElementById("primo2").innerHTML = `${pontua(`${primo2}`)}`;
-            document.getElementById("resultadoMult").innerHTML = `${pontua(`${produto}`)}`;
+            document.getElementById("primo1").innerHTML = `${pontua(primo1)}`;
+            document.getElementById("primo2").innerHTML = `${pontua(primo2)}`;
+            document.getElementById("resultadoMult").innerHTML = `${pontua(produto)}`;
             document.getElementById("produto").value = produto;
             verificaTempo();
         }
@@ -108,11 +112,18 @@
 
         function procura(){
             let produto = Number(document.getElementById("produto").value);
-            if (produto > 0) {
-                let [p1, p2] = doisTermosProduto(produto);
-                document.getElementById("resultadoProduto").innerText = `Os primos deste produto de dois termos são ${pontua(`${p1}`)} e ${pontua(`${p2}`)}.`;
-            
-            }else alert('O campo "Produto dos Termos" está vazio!');
+            if (produto > 1000000000000) {
+                if (confirm(`O produto ${pontua(produto)} poderá demorar. Deseja continuar?`)){
+                    let [p1, p2] = doisTermosProduto(produto);
+                    document.getElementById("resultadoProduto").innerText = `Os primos deste produto de dois termos são ${pontua(p1)} e ${pontua(p2)}.`;
+                } 
+            }else {
+                if (produto < 0) alert('O campo "Produto dos Termos" está vazio!');
+                else {
+                    let [p1, p2] = doisTermosProduto(produto);
+                    document.getElementById("resultadoProduto").innerText = `Os primos deste produto de dois termos são ${pontua(p1)} e ${pontua(p2)}.`;
+                }
+            } 
         }
 
     </script>
